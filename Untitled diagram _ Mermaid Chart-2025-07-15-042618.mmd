@@ -1,0 +1,172 @@
+erDiagram
+
+  %% === USERS === %%
+  User {
+    string id
+    string clerkId
+    string email
+    string name
+    string avatar
+    boolean isVerified
+    enum role
+    int points
+    datetime createdAt
+  }
+
+  %% === QUESTIONS === %%
+  Question {
+    string id
+    string title
+    string content
+    string[] tags
+    string userId
+    string communityId
+    boolean resolved
+    int reward
+    datetime createdAt
+  }
+
+  Answer {
+    string id
+    string content
+    string questionId
+    string userId
+    boolean isAccepted
+    int pointsGiven
+    datetime createdAt
+  }
+
+  %% === POSTS & COMMENTS === %%
+  Post {
+    string id
+    string title
+    string content
+    string userId
+    string communityId
+    datetime createdAt
+  }
+
+  Comment {
+    string id
+    string content
+    string userId
+    string postId
+    datetime createdAt
+  }
+
+  %% === COMMUNITY & ROOMS === %%
+  Community {
+    string id
+    string name
+    string description
+    string slug
+    datetime createdAt
+  }
+
+  CommunityUser {
+    string id
+    string userId
+    string communityId
+    enum role
+    datetime joinedAt
+  }
+
+  CommunityRoom {
+    string id
+    string title
+    string communityId
+    datetime createdAt
+  }
+
+  %% === COURSES === %%
+  Course {
+    string id
+    string title
+    string provider
+    string link
+    float price
+    boolean affiliate
+    string[] tags
+    string image
+    datetime createdAt
+  }
+
+  %% === CAMPAIGNS === %%
+  Campaign {
+    string id
+    string title
+    string description
+    string companyId
+    enum type
+    string link
+    string image
+    boolean active
+    datetime createdAt
+  }
+
+  %% === NEWS === %%
+  News {
+    string id
+    string title
+    string content
+    string source
+    string image
+    string authorId
+    datetime createdAt
+  }
+
+  %% === LEADERBOARD === %%
+  LeaderboardEntry {
+    string id
+    string userId
+    int score
+    string period
+    datetime createdAt
+  }
+
+  %% === SYSTEM STATS === %%
+  SystemStats {
+    string id
+    int totalUsers
+    int totalQuestions
+    int totalAnswers
+    int totalCommunities
+    int totalPosts
+    int totalComments
+    int totalCourses
+    int totalCampaigns
+    int totalNews
+    datetime lastUpdated
+  }
+
+  %% === RELATIONSHIPS === %%
+  User ||--o{ Question : asks
+  User ||--o{ Answer : writes
+  User ||--o{ Post : creates
+  User ||--o{ Comment : comments
+  User ||--o{ Campaign : owns
+  User ||--o{ CommunityUser : joins
+  User ||--o{ LeaderboardEntry : ranks
+
+  Question ||--|{ Answer : has
+  Question }o--|| Community : in
+
+  Post ||--|{ Comment : has
+  Post }o--|| Community : in
+
+  Comment }o--|| Post : on
+  Comment }o--|| User : by
+
+  Community ||--o{ CommunityUser : members
+  Community ||--o{ Question : has_questions
+  Community ||--o{ Post : has_posts
+  Community ||--o{ CommunityRoom : rooms
+
+  CommunityUser }o--|| User : by
+  CommunityUser }o--|| Community : in
+
+  Campaign }o--|| User : company_owner
+
+  LeaderboardEntry }o--|| User : for
+
+  News }o--|| User : author
