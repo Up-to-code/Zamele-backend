@@ -23,4 +23,8 @@ A Node.js backend project using TypeScript.
 - `npm run dev` - Start in development mode
 - `npm run build` - Build TypeScript
 - `npm start` - Run built code
-- `npm test` - Run tests 
+- `npm test` - Run tests
+
+## Project links
+
+[Source](https://github.com/Up-to-code/Zamele-backend) · [Issues](https://github.com/Up-to-code/Zamele-backend/issues) · [Public project directory](https://github.com/qentrah/.github/blob/main/profile/PROJECTS.md)
